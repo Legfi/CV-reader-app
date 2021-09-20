@@ -1,7 +1,7 @@
 # Group-5
 
-##intro
+## intro
 
-#### instructions
+## instructions
 
 ## Contributing
