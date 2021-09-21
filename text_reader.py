@@ -14,11 +14,11 @@ def my_streamlit():
     ## Are you tired of reading thousands of CV's every day and still not find a person you need for your company?""")
 
     #showing backgroud image(qulity is very bad we shoud change the image later!)
-    image = Image.open("C:/Users/dadme/Desktop/Data science/Group project test/I'm tired CV.jpg")
+    image = Image.open("I'm tired CV.jpg")
     st.image(image, caption="I'm done with this!", use_column_width=True)
 
     #get Data 
-    df = pd.read_csv('C:/Users/dadme/Desktop/Data science/Group project test/hiring.csv')
+    df = pd.read_csv('hiring.csv')
     #set a subheader
     st.subheader('Some facts about how much time you can save:')
     #show the data as a table
