@@ -35,28 +35,44 @@ def my_streamlit():
     if st.button("Enter :)"):
         st.write('Welcom to Text Readers', text_capitalize, '!')
 
-    #here we get the users text and save them as a variable to use in our model
-    cv = st.text_input("""Allright! Just paste a copy of CV or Personal Letter you want to read 
-    and leave the rest to us! """)
+    #here we get the users text and save them as a variable and press submit to use in our model
+    with st.form("this is a form"):
 
-    user_question = st.text_input(""" Write an important question that you want to know about this CV: """)
+        cv = st.text_input("""Allright! Just paste a copy of CV or Personal Letter you want to read 
+        and leave the rest to us! """)
+        user_question = st.text_input(""" Write an important question that you want to know about this CV: """)
+        finished = st.form_submit_button("Submit")
 
-#def my_module():
-    """this function gets cv and user_question and send them to our module
-    """
-    #r = requests.post('http://localhost:8000/start', json={'name' : 'question_answering'})
-    #url = "http://localhost:8000/qa"
-    #body = {"context": cv , "question":user_question}
-    #response = requests.post(url, json=body)
-
-if __name__ == "__main__":
+        if finished:
+            model_response = my_module(cv, user_question)
+            st.write(model_response)
     
+
+def my_module(cv, user_question):
+    #this function gets cv and user_question and send them to our module
+    
+    r = requests.post('http://localhost:8000/start', json={'name' : 'question_answering'})
+    
+    url = "http://localhost:8000/qa"
+    body = {"context": cv , "question":user_question}
+    response = requests.post(url, json=body)
+    return response.json()
+
+def main():
+
     my_streamlit()
-    #I've tried this in notbook and it works! it's it's awesome!!! I think this function might run our module!
-    #my_module():
-    
-
     #here is function we need to save data in our database! 
     #my_SQL()
 
 
+if __name__ == "__main__":
+    
+    main()
+    
+
+    
+
+
+    #filtering our data(i mon av tid annars tar vi bort dem!)
+    #st.sidebar.slider('How many years of experience?', 0, 10, 5)
+    #st.sidebar.multiselect('Which field?', ['IT', 'Engineering', 'Art'])
