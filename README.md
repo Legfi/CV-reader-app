@@ -43,12 +43,17 @@ As I have mentioned before, you never know who is going to read your readme. So 
 
 ## Contribute:
 
-This is where you let them know that they can contribute and help you out. A guideline on how to contribute is also helpful
+If you want to contribute to the code and this project it is made possible by commiting new code to github. 
+
+For access to our private project reach out to:
+simpleapp@email.com. 
 
 ## Credits:
 
 Reference the person who wrote the API? 
+
 Giving proper credit is most important. Mention any links/repos which helped you or inspired you to build this project. It can be a blog, another open source project, or just people who have contributed in building this project.
 License
+
 A short description of the license. (MIT, Apache, etc.)ontributing
 
