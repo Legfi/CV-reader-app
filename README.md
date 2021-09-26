@@ -13,9 +13,12 @@ Standard. The code follows coding conventions for Python by using PEP8 framework
 
 ## Screenshots: 
 
-Screenshots
-As the saying goes, a picture is equal to a thousand words. Most people will be interested if there is a visual representation of what the project is about. It helps them understand better. A visual representation can be snapshots of the project or a video of the functioning of the project.
-Tech/Framework used
+Add screenshot tomorrow. 
+
+## Tech/Framework used:
+
+Machine Learning. APi. Python Library. 
+
 This is used to help the reader understand which tech or frameworks have been used to do the project. It helps the reader understand which all tech stack he has to be familiar with to understand the whole project.
 Features
 This is where you write what all extra features have been done in your project. Basically this is where you try to make your project stand out from the rest.
