@@ -19,27 +19,35 @@ Add screenshot tomorrow.
 
 Streamlit, Pandas, Sqlite3. 
 
-##Features: 
+## Features: 
 
-##Code Examples:
+## Code Examples:
 
-##Installation:
+## Installation:
 
 You need to import the following modules into python: Streamlit, Pandas, and Sqlit3. This is a guide on how to import modules into python. 
 
 https://www.geeksforgeeks.org/import-module-python/
 
-##API reference:
+## API reference:
 
 Insert documentation for API. 
 
-Tests
+## Tests:
+
 This is the section where you mention all the different tests that can be performed with code examples
-How to Use?
+
+## User-guide:
+
 As I have mentioned before, you never know who is going to read your readme. So it is better to provide information on how to use your project. A step-by-step guide is best suited for this purpose. It is better to explain steps as detailed as possible because it might be a beginner who is reading it.
-Contribute
+
+## Contribute:
+
 This is where you let them know that they can contribute and help you out. A guideline on how to contribute is also helpful
-Credits
+
+## Credits:
+
+Reference the person who wrote the API? 
 Giving proper credit is most important. Mention any links/repos which helped you or inspired you to build this project. It can be a blog, another open source project, or just people who have contributed in building this project.
 License
 A short description of the license. (MIT, Apache, etc.)ontributing
