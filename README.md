@@ -5,7 +5,9 @@ We use a Machine Learning module that we access via an API (Application Programm
 
 ## Build Status:
 
-Completed. No buss or errors in need of addressing. 
+Completed. 
+
+No bugs or errors in need of addressing. 
 
 ## Code Style:
 
