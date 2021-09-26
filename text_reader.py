@@ -2,72 +2,123 @@ from PIL import Image
 import streamlit as st
 import pandas as pd
 import requests
+import sqlite3
+
+
+# DB handler ---------------------------------------------------------------------------------------------------------------
+# create and connect to DB 
+conn = sqlite3.connect('candidates.db')
+cursor = conn.cursor()
+
+# create database table candidates_cv 
+cursor.execute("""CREATE TABLE IF NOT EXISTS candidates_cv(name str, cv str)""")
+
+
+# ----------------------- CRUD Methods -----------------------
+# Create
+def add_candidate(name, cv):
+    with conn:
+        cursor.execute("INSERT INTO candidates_cv VALUES (:name, :cv)", {'name': name, 'cv': cv})
+        conn.commit()
+
+# Read 
+def read_candidate_cv(name):
+    cv = conn.execute("SELECT cv FROM candidates_cv WHERE name=:name", {'name': name}).fetchone()
+    return cv
+
+# Update 
+def update_cv(name, cv):
+    with conn:
+        cursor.execute("""UPDATE candidates_cv SET cv = :cv WHERE name = :name""", 
+                        {'name': name, 'cv': cv})
+
+# Delete 
+def delete_candidate(name):
+    with conn:
+        cursor.execute("DELETE from candidates_cv WHERE name = :name",
+        {'name': name})
+# ----------------------- CRUD Methods -----------------------
+# DB handler ---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 def my_streamlit():
     """this function runs the app"""
-    #subtitle
+# Landing page -------------------------------------------------------------------------------------------------------------
+# Tile/ application pitch
     st.write("""
     # We make your job as a manager much easier than before!""")
-    #little bit of information about app
     st.write("""
     ## Are you tired of reading thousands of CV's every day and still not find a person you need for your company?""")
 
-    #showing backgroud image(qulity is very bad we shoud change the image later!)
+# Background image(quality is very bad we should change the image later!)
     image = Image.open("I'm tired CV.jpg")
     st.image(image, caption="I'm done with this!", use_column_width=True)
+# Landing page -------------------------------------------------------------------------------------------------------------
 
-    #get Data 
-    df = pd.read_csv('hiring.csv')
-    #set a subheader
-    st.subheader('Some facts about how much time you can save:')
-    #show the data as a table
-    my_data = st.dataframe(df)
-    #show statistics on the data
-    st.write(df.describe())
-    #show the data as a chart
-    #chart = st.bar_chart(df)
-    st.write(""" 
-    ### Don't worry! Text Reader is here to help you during the hiring process of your company!""")
-    porpose = st.sidebar.selectbox('what is your porpose today?', ['working with a new cv', 'working with an old cv'])
-    if porpose == 'working with a new cv':
 
-        #getting user name and greeting
-        user_name = st.text_input("""Let's get start! Please Enter your condidate name and press enter button below : """)
-        user_name_c = user_name.capitalize()
-        if st.button("Enter :)"):
-            st.write('Allright! Let see if', user_name_c, 'is your favourit condidate!')
+# ------------------------------------Statistics of how much time you can save----------------------------------------------
+    # #get Data 
+    # df = pd.read_csv('hiring.csv')
+    # #set a subheader
+    # st.subheader('Some facts about how much time you can save:')
+    # #show the data as a table
+    # my_data = st.dataframe(df)
+    # #show statistics on the data
+    # st.write(df.describe())
+    # #show the data as a chart
+    # #chart = st.bar_chart(df)
+# ------------------------------------Statistics of how much time you can save----------------------------------------------
 
-        #here we get the users text and save them as a variable and press submit to use in our model
-        with st.form("this is a form"):
 
-            cv = st.text_input("""OK! Just paste a copy of CV or Personal Letter you want to read 
-            and leave the rest to us! """)
-            user_question = st.text_input(""" Write an important question that you want to know about this CV: """)
-            finished = st.form_submit_button("Submit")
+#  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
+    st.write(""" ### Don't worry! Text Reader is here to help you during the hiring process of your company!
+    ###
+    ###
+    ### """)
+    purpose = st.selectbox('Would you like to add new candidate, or review existing candidates in database', ['Add new candidate', 'Review existing candidates'])
+#  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
 
-            if finished:
-                model_response = my_module(cv, user_question)
-                st.write("Your answer is :", model_response["answer"])
-                st.write("Score of the right answer :", model_response["score"])
-                #class function here!!!you can write your codes to call functions in your class to save cvs into database
-                #here. delete these comments when you are done!!!
-                
-    elif porpose == 'working with an old cv':
-        st.text_input("""enter the condidates name that you want to work with their cv""")
-        #class function here!!!you can write your codes to call functions in your class to read cvs from database
-        #here. delete these comments when you are done!!!
 
-        ###############after your codes
+# ---------------------------------Streamlit form for adding new candidate cv to database-----------------------------------
+    if purpose == 'Add new candidate':
+        st.write(""" 
+        ###### Enter name and paste cv or personal letter and press the upload button to add new candidate""")
 
-        #user_question = st.text_input(""" Write an important question that you want to know about this CV: """)
-        #finished = st.form_submit_button("Submit")
-        #here when user pick to work with old cv we need cv from your class to put in 
-        # my_module(class--> cv, user_question) which i dont know how. otherwise if it's hard we just decide
-        # that user only can see the cv or questions here and not interact with them which is what we need for
-        # our project that only show from data base!
-        #if finished:
-        #    model_response = my_module(user_question)
-        #    st.write(model_response)
+        with st.form("Upload candidate form"):
+            candidate_name = st.text_input("""Enter candidate name : """).capitalize()
+            candidate_cv = st.text_input("""Paste a copy of CV or Personal Letter""")
+            upload = st.form_submit_button("Upload")
 
+            if upload:
+# Database Create function
+                add_candidate(candidate_name, candidate_cv)
+# ---------------------------------Streamlit form for adding new candidate cv to database-----------------------------------
+
+
+# ----------------------------------Streamlit form for submitting question to ML-model--------------------------------------
+    elif purpose == 'Review existing candidates':
+        st.write(""" 
+        ###### First select a candidate in the dropdown menu, then type in a question and press submit to get your answer""")
+
+# creating list of candidate names names from database candidates.db
+        cursor.execute("SELECT name FROM candidates_cv")
+        names = cursor.fetchall()
+        list_of_candidates = []
+        for row in names:
+            list_of_candidates.append(row[0])
+# question form and candidate selection box
+        with st.form("Question form"):
+            selected_candidate = st.selectbox('Candidates', list_of_candidates)
+            candidate_cv = str(read_candidate_cv(selected_candidate))
+            user_question = st.text_input(""" Write an important question that you want to know about this candidates CV: """)
+            submit_question = st.form_submit_button("Submit")
+            
+            if submit_question:
+                model_response = my_module(candidate_cv, user_question)
+                st.write(model_response)
 
 
 
@@ -83,10 +134,7 @@ def my_module(cv, user_question):
 
 
 def main():
-
     my_streamlit()
-    #here is function we need to save data in our database! 
-    #my_SQL()
 
 
 if __name__ == "__main__":
