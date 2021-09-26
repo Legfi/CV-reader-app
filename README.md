@@ -1,20 +1,18 @@
 #  A very simple Machine Learning Application: A Group Project.
 ## Brief Summary: 
 
-We used a Machine Learning model via an API (Application Programming Interface) and we also a library called Streamlit. Streamlit is used to visualized the interaction for. The idea at large was that the user uploads 
-data into a database and the user can then reach the saved information that is sorted under the name of the applicant. The simple database used is SQLite.
+We use a Machine Learning module that we access via an API (Application Programming Interface) request. We also make use of the Streamlit library. The idea at large was that the user uploads data into a database and the user can then reach the saved information that is sorted under the name of the applicant. The simple database used is SQLite. The applicants data can then be used in order to answer very simple questions that are connected to the text copied into the Streamlit. For example, what if HR (Human Resources) wanted to easily access different data and not have to read through all of the text that the user provides within a textfile. HR then are able to ask questions and the Machine Learning tool provides a probability. 
 
-The applicants data can then be used in order to answer very simple questions that are connected to the text copied into the streamlit. For example, HR wants to easily access different data and not have to read through all of the text that the user provides within a text-file. THe HR uses the 
+## Build Status:
 
+Completed. No buss or errors in need of addressing. 
 
+## Code Style:
 
-A little brief about what the project is about. It should be like a small summary format informing about the main purpose of the project.
-Motivation
-This section is for letting the reader know why you created this project, the reason behind pursuing such a project, and why you have decided to do it.
-Build Status
-This basically explains the current build status of the project. If there is a bug /error which needs addressing. This is done so for two different reasons The user understands that this is an issue and does not spend more time figuring if it was a mistake on their part.A developer who is familiar with the issue can suggest some solutions directly without going through the whole code.
-Code Style
-This lets the users know that you have used a particular code style and helps them when contributing to your project so that the whole project code style stays the same. Some common code styles: standard, xo, etc.
+Standard. The code follows coding conventions for Python by using PEP8 framework. 
+
+## Screenshots: 
+
 Screenshots
 As the saying goes, a picture is equal to a thousand words. Most people will be interested if there is a visual representation of what the project is about. It helps them understand better. A visual representation can be snapshots of the project or a video of the functioning of the project.
 Tech/Framework used
