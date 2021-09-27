@@ -7,7 +7,7 @@ We use a Machine Learning module that we access via an API (Application Programm
 
 Completed. 
 
-No bugs or errors in need of addressing. 
+No bugs or errors in need of addressing. We hope.
 
 ## Code Style:
 
