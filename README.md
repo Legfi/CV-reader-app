@@ -15,7 +15,7 @@ Standard. The code follows coding conventions for Python by using PEP8 framework
 
 ## Screenshots: 
 
-Add screenshot tomorrow. 
+
 
 ## Tech/Framework used:
 
@@ -23,7 +23,11 @@ Streamlit, Pandas, Sqlite3.
 
 ## Features: 
 
+The application can search through a textfile and with machine learning answer some questions. We used it in a HR situation but the API can answer more   
+
 ## Code Examples:
+
+![Screenshot](screenshot_1.png)
 
 ## Installation:
 
@@ -33,7 +37,7 @@ https://www.geeksforgeeks.org/import-module-python/
 
 ## API reference:
 
-Insert documentation for API. 
+Not available at the moment. 
 
 ## Tests:
 
@@ -41,21 +45,27 @@ This is the section where you mention all the different tests that can be perfor
 
 ## User-guide:
 
-As I have mentioned before, you never know who is going to read your readme. So it is better to provide information on how to use your project. A step-by-step guide is best suited for this purpose. It is better to explain steps as detailed as possible because it might be a beginner who is reading it.
+1. Open the python file main.py. 
 
+2. Enter this in terminal: streamlit run main.py 
+
+3. Default is to add a new candidate then enter name. Enter CV in textform and then press upload. 
+
+![Screenshot](screenshot_2.png)
+
+4. If you have done this, the entering of the data, and want to review the candidates and ask questions use the "select box" to change section to the question part.
+ 
+![Screenshot](screenshot_3.png)
+ 
 ## Contribute:
 
-If you want to contribute to the code and this project it is made possible by commiting new code to github. 
+If you want to contribute to the code and this project it is made possible by commiting new code to github.
 
 For access to our private project reach out to:
 simpleapp@email.com. 
 
 ## Credits:
 
-Reference the person who wrote the API? 
+The creator of the API, Isabella Gagner. 
 
-Giving proper credit is most important. Mention any links/repos which helped you or inspired you to build this project. It can be a blog, another open source project, or just people who have contributed in building this project.
-License
-
-A short description of the license. (MIT, Apache, etc.)ontributing
 
