@@ -50,8 +50,9 @@ This is the section where you mention all the different tests that can be perfor
 <img width="1668" alt="Screenshot_2" src="https://user-images.githubusercontent.com/89390286/134902383-3b712bb7-c8cf-4dde-9772-a71e0390d21e.png">
 
 4. If you have done this, the entering of the data, and want to review the candidates and ask questions use the "select box" to change section to the question part.
- 
-![Screenshot](screenshot_3.png)
+
+<img width="1676" alt="Screenshot_3" src="https://user-images.githubusercontent.com/89390286/134902607-f72e8215-a82b-4d1c-ae0b-dc722dc82453.png">
+
  
 ## Contribute:
 
