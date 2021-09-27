@@ -1,9 +1,12 @@
+# ---- Imports ----
+
 from PIL import Image
 import streamlit as st
 import pandas as pd
 import requests
 import sqlite3
 
+# ---- Functions ----
 
 # DB handler ---------------------------------------------------------------------------------------------------------------
 # create and connect to DB 
@@ -17,26 +20,31 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS candidates_cv(name str, cv str)""")
 # ----------------------- CRUD Methods -----------------------
 # Create
 def add_candidate(name, cv):
+    """This function commits name and cv to database"""
     with conn:
         cursor.execute("INSERT INTO candidates_cv VALUES (:name, :cv)", {'name': name, 'cv': cv})
         conn.commit()
 
 # Read 
 def read_candidate_cv(name):
+    """This function selects and returns a cv""" 
     cv = conn.execute("SELECT cv FROM candidates_cv WHERE name=:name", {'name': name}).fetchone()
     return cv
 
 # Update 
 def update_cv(name, cv):
+    """This function selects and updates a cv"""
     with conn:
         cursor.execute("""UPDATE candidates_cv SET cv = :cv WHERE name = :name""", 
-                        {'name': name, 'cv': cv})
+        {'name': name, 'cv': cv})
 
 # Delete 
 def delete_candidate(name):
+    """This function selects and deletes a cv"""
     with conn:
         cursor.execute("DELETE from candidates_cv WHERE name = :name",
         {'name': name})
+
 # ----------------------- CRUD Methods -----------------------
 # DB handler ---------------------------------------------------------------------------------------------------------------
 
@@ -45,7 +53,7 @@ def delete_candidate(name):
 
 
 def my_streamlit():
-    """this function runs the app"""
+    """This function runs the app"""
 # -------------------------------------------------Landing page-------------------------------------------------------------
 # Tile/ application pitch
     st.write("""# We make your job as a manager much easier than before!""")
@@ -123,8 +131,7 @@ def my_streamlit():
 
 
 def my_module(cv, user_question):
-    #this function gets cv and user_question and send them to our module
-    
+    """This function selects cv and user_question returns to module"""    
     requests.post('http://localhost:8000/start', json = {'name' : 'question_answering'})
     
     url         = "http://localhost:8000/qa"
@@ -134,9 +141,11 @@ def my_module(cv, user_question):
 
 
 def main():
+    """When running this script this is the main module that handles the appplications logic"""
     my_streamlit()
 
 
+# ---- Mainmethod ----
+
 if __name__ == "__main__":
-    
     main()
