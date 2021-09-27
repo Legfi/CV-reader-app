@@ -25,9 +25,9 @@ Streamlit, Pandas, Sqlite3.
 
 The application can search through a textfile and with machine learning answer some questions. We used it in a HR situation but the API can answer more   
 
-## Code Examples:
+## Code Example:
 
-![Screenshot](screenshot_1.png)
+<img width="1055" alt="Screenshot_1" src="https://user-images.githubusercontent.com/89390286/134901180-820946d8-c074-49ca-8795-30acf40267fb.png">
 
 ## Installation:
 
