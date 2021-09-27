@@ -4,68 +4,24 @@ from PIL import Image
 import streamlit as st
 import pandas as pd
 import requests
-import sqlite3
-
-# ---- Functions ----
-
-# DB handler ---------------------------------------------------------------------------------------------------------------
-# create and connect to DB 
-conn = sqlite3.connect('candidates.db')
-cursor = conn.cursor()
-
-# create database table candidates_cv 
-cursor.execute("""CREATE TABLE IF NOT EXISTS candidates_cv(name str, cv str)""")
-
-
-# ----------------------- CRUD Methods -----------------------
-# Create
-def add_candidate(name, cv):
-    """This function commits name and cv to database"""
-    with conn:
-        cursor.execute("INSERT INTO candidates_cv VALUES (:name, :cv)", {'name': name, 'cv': cv})
-        conn.commit()
-
-# Read 
-def read_candidate_cv(name):
-    """This function selects and returns a cv""" 
-    cv = conn.execute("SELECT cv FROM candidates_cv WHERE name=:name", {'name': name}).fetchone()
-    return cv
-
-# Update 
-def update_cv(name, cv):
-    """This function selects and updates a cv"""
-    with conn:
-        cursor.execute("""UPDATE candidates_cv SET cv = :cv WHERE name = :name""", 
-        {'name': name, 'cv': cv})
-
-# Delete 
-def delete_candidate(name):
-    """This function selects and deletes a cv"""
-    with conn:
-        cursor.execute("DELETE from candidates_cv WHERE name = :name",
-        {'name': name})
-
-# ----------------------- CRUD Methods -----------------------
-# DB handler ---------------------------------------------------------------------------------------------------------------
-
-
+from DB_class import DB_handler as db
 
 
 
 def my_streamlit():
     """This function runs the app"""
-# -------------------------------------------------Landing page-------------------------------------------------------------
-# Tile/ application pitch
+    # -------------------------------------------------Landing page-------------------------------------------------------------
+    # Tile/ application pitch
     st.write("""# We make your job as a manager much easier than before!""")
     st.write("""## Are you tired of reading thousands of CV's every day and still not find a person you need for your company?""")
 
-# Background image(quality is very bad we should change the image later!)
+    # Background image(quality is very bad we should change the image later!)
     image = Image.open("I'm tired CV.jpg")
     st.image(image, caption="I'm done with this!", use_column_width=True)
-# -------------------------------------------------Landing page-------------------------------------------------------------
+    # -------------------------------------------------Landing page-------------------------------------------------------------
 
 
-# ------------------------------------Statistics of how much time you can save----------------------------------------------
+    # ------------------------------------Statistics of how much time you can save----------------------------------------------
     # get Data 
     df = pd.read_csv('hiring.csv')
     # set a subheader
@@ -73,17 +29,17 @@ def my_streamlit():
     # show the data as a table
     my_data = st.dataframe(df)
     st.write("""### Don't worry! Text Reader is here to help you during the hiring process of your company!""")
-# ------------------------------------Statistics of how much time you can save----------------------------------------------
+    # ------------------------------------Statistics of how much time you can save----------------------------------------------
 
 def decision():
-#  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
+    #  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
     purpose = st.selectbox(
         'Would you like to add new candidate, or review existing candidates in database', 
         ['Add new candidate', 'Review existing candidates'])
-#  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
+    #  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
 
 
-# ---------------------------------Streamlit form for adding new candidate cv to database-----------------------------------
+    # ---------------------------------Streamlit form for adding new candidate cv to database-----------------------------------
     if purpose == 'Add new candidate':
         st.write("""Enter name and paste cv or personal letter and press the upload button to add new candidate""")
 
@@ -91,29 +47,25 @@ def decision():
             candidate_name  = st.text_input("""Enter candidate name : """).capitalize()
             candidate_cv    = st.text_input("""Paste a copy of CV or Personal Letter""")
 
-# Submitbutton
+    # Submitbutton
             upload          = st.form_submit_button("Upload")
             if upload:
-# Database Create function
-                add_candidate(candidate_name, candidate_cv)
-# ---------------------------------Streamlit form for adding new candidate cv to database-----------------------------------
+    # Database Create function
+                db(candidate_name, candidate_cv).add_candidate()
+    # ---------------------------------Streamlit form for adding new candidate cv to database-----------------------------------
 
 
-# ----------------------------------Streamlit form for submitting question to ML-model--------------------------------------
+    # ----------------------------------Streamlit form for submitting question to ML-model--------------------------------------
     elif purpose == 'Review existing candidates':
         st.write("""First select a candidate in the dropdown menu, then type in a question and press submit to get your answer""")
 
-# creating list of candidate names names from database candidates.db
-        cursor.execute("SELECT name FROM candidates_cv")
-        names = cursor.fetchall()
-        list_of_candidates  = []
-        for row in names:
-            list_of_candidates.append(row[0])
+    # creating list of candidate names names from database candidates.db
+        list_of_candidates = db.list_of_candidates()
 
-# question form and candidate selection box
+    # question form and candidate selection box
         with st.form("Question form"):
             selected_candidate  = st.selectbox('Candidates', list_of_candidates)
-            candidate_cv        = str(read_candidate_cv(selected_candidate))
+            candidate_cv        = str(db(selected_candidate).read_candidate_cv())
             user_question       = st.text_input(""" Write an important question that you want to know about this candidates CV: """)
             submit_question     = st.form_submit_button("Submit")
             
@@ -122,7 +74,7 @@ def decision():
                 # st.write(model_response)
                 st.write("Your answer is :", model_response["answer"])
                 st.write("Score of the right answer :", model_response["score"])
-# ----------------------------------Streamlit form for submitting question to ML-model--------------------------------------
+    # ----------------------------------Streamlit form for submitting question to ML-model--------------------------------------
 
 
 
