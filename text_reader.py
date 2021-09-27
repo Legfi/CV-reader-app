@@ -66,21 +66,17 @@ def my_streamlit():
 
 
 # ------------------------------------Statistics of how much time you can save----------------------------------------------
-    # #get Data 
-    # df = pd.read_csv('hiring.csv')
-    # #set a subheader
-    # st.subheader('Some facts about how much time you can save:')
-    # #show the data as a table
-    # my_data = st.dataframe(df)
-    # #show statistics on the data
-    # st.write(df.describe())
-    # #show the data as a chart
-    # #chart = st.bar_chart(df)
+    # get Data 
+    df = pd.read_csv('hiring.csv')
+    # set a subheader
+    st.subheader('Some facts about how much time you can save:')
+    # show the data as a table
+    my_data = st.dataframe(df)
+    st.write("""### Don't worry! Text Reader is here to help you during the hiring process of your company!""")
 # ------------------------------------Statistics of how much time you can save----------------------------------------------
 
-
+def decision():
 #  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
-    st.write("""### Don't worry! Text Reader is here to help you during the hiring process of your company!""")
     purpose = st.selectbox(
         'Would you like to add new candidate, or review existing candidates in database', 
         ['Add new candidate', 'Review existing candidates'])
@@ -143,7 +139,7 @@ def my_module(cv, user_question):
 def main():
     """When running this script this is the main module that handles the appplications logic"""
     my_streamlit()
-
+    decision()
 
 # ---- Mainmethod ----
 
