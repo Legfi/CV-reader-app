@@ -13,10 +13,6 @@ No bugs or errors in need of addressing.
 
 Standard. The code follows coding conventions for Python by using PEP8 framework. 
 
-## Screenshots: 
-
-![Optional Text](../master/myFolder/image.png)
-
 ## Tech/Framework used:
 
 Streamlit, Pandas, Sqlite3. 
