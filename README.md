@@ -15,7 +15,7 @@ Standard. The code follows coding conventions for Python by using PEP8 framework
 
 ## Screenshots: 
 
-![What is this](Screen.png)
+![alt text](https://imgur.com/qwhbaIP)
 
 ## Tech/Framework used:
 
