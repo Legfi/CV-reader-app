@@ -67,9 +67,9 @@ This is the section where you mention all the different tests that can be perfor
 
 ## User-guide:
 
-1. Open the python file text_handler.py. 
+1. Open the python file text_reader.py. 
 
-2. Enter this in terminal: streamlit run text_handler.py 
+2. Enter this in terminal: streamlit run text_reader.py 
 
 3. Default is to add a new candidate then enter name. Enter CV in textform and then press upload. The select box should be looking like the select box below: 
 
