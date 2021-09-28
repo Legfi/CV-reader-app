@@ -11,20 +11,20 @@ from DB_class import DB_handler as db
 def my_streamlit():
     """This function runs the app"""
     
-    # application pitch
+    # Application pitch
     st.write("""# We make your job as a manager much easier than before!""")
     st.write("""## Are you tired of reading thousands of CV's every day and still not find a person you need for your company?""")
 
-    # background image
+    # Background image
     image = Image.open("I'm tired CV.jpg")
     st.image(image, caption="I'm done with this!", use_column_width=True)
 
-    # statistics on how much time you can save
-    # gets data 
+    # Statistics on how much time you can save
+    # Gets data 
     df = pd.read_csv('hiring.csv')
-    # sets a subheader
+    # Sets a subheader
     st.subheader('This is how we helped Tesla hire their favourite data scientists team:')
-    # shows the data as a table
+    # Shows the data as a table
     st.dataframe(df)
     my_data = df[['experience', 'interview_score(out of 10)']]
     st.line_chart(my_data)
@@ -32,12 +32,12 @@ def my_streamlit():
     st.write("""### Don't worry! Text Reader is here to help you during the hiring process of your company!""")
 
 def decision():
-    # multiple choice selectionbox
+    # Multiple choice selectionbox
     purpose = st.selectbox(
         'Would you like to add new candidate, or review existing candidates in database', 
         ['Add new candidate', 'Review existing candidates'])
 
-    # streamlit form for adding new candidate cv to database
+    # Streamlit form for adding new candidate cv to database
     if purpose == 'Add new candidate':
         st.write("""Enter name and paste cv or personal letter and press the upload button to add new candidate""")
 
@@ -45,21 +45,21 @@ def decision():
             candidate_name  = st.text_input("""Enter candidate name : """).capitalize()
             candidate_cv    = st.text_input("""Paste a copy of CV or Personal Letter""")
 
-    # submit button
+    # Submit button
             upload          = st.form_submit_button("Upload")
             if upload:
-    # database create function
+    # Database create function
                 db(candidate_name, candidate_cv).add_candidate()
 
 
-    # streamlit form for submitting question to ML-model
+    # Streamlit form for submitting question to ML-model
     elif purpose == 'Review existing candidates':
         st.write("""First select a candidate in the dropdown menu, then type in a question and press submit to get your answer""")
 
-    # creating list of candidate names names from database candidates.db
+    # Creating list of candidate names names from database candidates.db
         list_of_candidates = db.list_of_candidates()
 
-    # question form and candidate selection box
+    # Question form and candidate selection box
         with st.form("Question form"):
             selected_candidate  = st.selectbox('Candidates', list_of_candidates)
             candidate_cv        = str(db(selected_candidate).read_candidate_cv())
@@ -68,7 +68,7 @@ def decision():
             
             if submit_question:
                 model_response  = my_module(candidate_cv, user_question)
-                # st.write(model_response)
+                # St.write(model_response)
                 st.write("Your answer is :", model_response["answer"])
                 st.write("Score of the right answer :", model_response["score"])
 

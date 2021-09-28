@@ -7,7 +7,7 @@ sqlite3.connect('candidates.db').cursor().execute("""CREATE TABLE IF NOT EXISTS 
                 cv str
                 )""")
 
-# db handler create and connect to db 
+# Db handler create and connect to db 
 class DB_handler:
     """This class is a set of CRUD methods"""
     def __init__(self, name, cv = 'none'):
@@ -17,30 +17,30 @@ class DB_handler:
         self.cursor = self.conn.cursor()
 
     # CRUD Methods
-    # create
+    # Create
     def add_candidate(self):
         with self.conn:
             self.cursor.execute("INSERT INTO candidates_cv VALUES (:name, :cv)", {'name': self.name, 'cv': self.cv})
             self.conn.commit()
 
-    # read 
+    # Read 
     def read_candidate_cv(self):
         cv = self.conn.execute("SELECT cv FROM candidates_cv WHERE name=:name", {'name': self.name}).fetchone()
         return cv
 
-    # update 
+    # Update 
     def update_cv(self):
         with self.conn:
             self.cursor.execute("""UPDATE candidates_cv SET cv = :cv WHERE name = :name""", 
                             {'name': self.name, 'cv': self.cv})
 
-    # delete 
+    # Delete 
     def delete_candidate(self):
         with self.conn:
             self.cursor.execute("DELETE from candidates_cv WHERE name = :name",
             {'name': self.name})
     
-    # creates list of all candidates in database for options in selectionbox 
+    # Creates list of all candidates in database for options in selectionbox 
     @staticmethod
     def list_of_candidates():
         cursor = sqlite3.connect('candidates.db').cursor()
