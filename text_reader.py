@@ -11,12 +11,22 @@ def my_streamlit():
     """This function runs the app"""
     # -------------------------------------------------Landing page-------------------------------------------------------------
     # Tile/ application pitch
-    st.write("""# We make your job as a manager much easier than before!""")
-    st.write("""## Are you tired of reading thousands of CV's every day and still not find a person you need for your company?""")
-
+    st.markdown("<h1 style='text-align: center; color: #F09AE5;'> \
+                We make your job as a manager much easier!</h1>",
+                unsafe_allow_html=True)
+    st.markdown("<h5 style='text-align: center; color: white;'> \
+                Are you tired of reading thousands of CV's \
+                every day and still not find a person you \
+                need for your company? Don't worry! \n Text Reader is here to help you \
+                during the hiring process of your company!</h5>",
+                unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: #F09AE5;'> \
+                _____________________________________________________________</h4>",
+                unsafe_allow_html=True)
     # Background image(quality is very bad we should change the image later!)
+    column_1, column_2, column_3 = st.columns(3)
     image = Image.open("I'm tired CV.jpg")
-    st.image(image, caption="I'm done with this!", use_column_width=True)
+    column_2.image(image, caption="I'm done with this!", width = 400)
     # -------------------------------------------------Landing page-------------------------------------------------------------
 
 
@@ -24,7 +34,9 @@ def my_streamlit():
     # get Data 
     df = pd.read_csv('hiring.csv')
     # set a subheader
-    st.subheader('This is how we helped Tesla hire their favourite data scientists team:')
+    st.markdown("<h3 style='text-align: center; color: white;'> \
+                This is how we helped Tesla hire their favourite data scientists team:!</h3>",
+                unsafe_allow_html=True)
     # show the data as a table
     st.dataframe(df)
     my_data = df[['experience', 'interview_score(out of 10)']]
