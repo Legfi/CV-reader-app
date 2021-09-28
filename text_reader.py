@@ -6,54 +6,38 @@ import pandas as pd
 import requests
 from DB_class import DB_handler as db
 
+# ---- Functions ----
 
 def my_streamlit():
     """This function runs the app"""
-    # -------------------------------------------------Landing page-------------------------------------------------------------
-    # Tile/ application pitch
-    st.markdown("<h1 style='text-align: center; color: #F09AE5;'> \
-                We make your job as a manager much easier!</h1>",
-                unsafe_allow_html=True)
-    st.markdown("<h5 style='text-align: center; color: white;'> \
-                Are you tired of reading thousands of CV's \
-                every day and still not find a person you \
-                need for your company? Don't worry! \n Text Reader is here to help you \
-                during the hiring process of your company!</h5>",
-                unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center; color: #F09AE5;'> \
-                _____________________________________________________________</h4>",
-                unsafe_allow_html=True)
-    # Background image(quality is very bad we should change the image later!)
-    column_1, column_2, column_3 = st.columns(3)
+    
+    # application pitch
+    st.write("""# We make your job as a manager much easier than before!""")
+    st.write("""## Are you tired of reading thousands of CV's every day and still not find a person you need for your company?""")
+
+    # background image
     image = Image.open("I'm tired CV.jpg")
-    column_2.image(image, caption="I'm done with this!", width = 400)
-    # -------------------------------------------------Landing page-------------------------------------------------------------
+    st.image(image, caption="I'm done with this!", use_column_width=True)
 
-
-    # ------------------------------------Statistics of how much time you can save----------------------------------------------
-    # get Data 
+    # statistics on how much time you can save
+    # gets data 
     df = pd.read_csv('hiring.csv')
-    # set a subheader
-    st.markdown("<h3 style='text-align: center; color: white;'> \
-                This is how we helped Tesla hire their favourite data scientists team:!</h3>",
-                unsafe_allow_html=True)
-    # show the data as a table
+    # sets a subheader
+    st.subheader('This is how we helped Tesla hire their favourite data scientists team:')
+    # shows the data as a table
     st.dataframe(df)
     my_data = df[['experience', 'interview_score(out of 10)']]
     st.line_chart(my_data)
     st.write("""### Consider that experience is not always the most important fact!""")
     st.write("""### Don't worry! Text Reader is here to help you during the hiring process of your company!""")
-    # ------------------------------------Statistics of how much time you can save----------------------------------------------
 
 def decision():
-    #  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
+    # multiple choice selectionbox
     purpose = st.selectbox(
         'Would you like to add new candidate, or review existing candidates in database', 
         ['Add new candidate', 'Review existing candidates'])
-    #  ----------------------------------------Multiple choice selectionbox-----------------------------------------------------
 
-
-    # ---------------------------------Streamlit form for adding new candidate cv to database-----------------------------------
+    # streamlit form for adding new candidate cv to database
     if purpose == 'Add new candidate':
         st.write("""Enter name and paste cv or personal letter and press the upload button to add new candidate""")
 
@@ -61,15 +45,14 @@ def decision():
             candidate_name  = st.text_input("""Enter candidate name : """).capitalize()
             candidate_cv    = st.text_input("""Paste a copy of CV or Personal Letter""")
 
-    # Submitbutton
+    # submit button
             upload          = st.form_submit_button("Upload")
             if upload:
-    # Database Create function
+    # database create function
                 db(candidate_name, candidate_cv).add_candidate()
-    # ---------------------------------Streamlit form for adding new candidate cv to database-----------------------------------
 
 
-    # ----------------------------------Streamlit form for submitting question to ML-model--------------------------------------
+    # streamlit form for submitting question to ML-model
     elif purpose == 'Review existing candidates':
         st.write("""First select a candidate in the dropdown menu, then type in a question and press submit to get your answer""")
 
@@ -88,9 +71,6 @@ def decision():
                 # st.write(model_response)
                 st.write("Your answer is :", model_response["answer"])
                 st.write("Score of the right answer :", model_response["score"])
-    # ----------------------------------Streamlit form for submitting question to ML-model--------------------------------------
-
-
 
 def my_module(cv, user_question):
     """This function selects cv and user_question returns to module"""    
