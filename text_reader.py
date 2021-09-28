@@ -7,7 +7,6 @@ import requests
 from DB_class import DB_handler as db
 
 
-
 def my_streamlit():
     """This function runs the app"""
     # -------------------------------------------------Landing page-------------------------------------------------------------
@@ -25,9 +24,12 @@ def my_streamlit():
     # get Data 
     df = pd.read_csv('hiring.csv')
     # set a subheader
-    st.subheader('Some facts about how much time you can save:')
+    st.subheader('This is how we helped Tesla hire their favourite data scientists team:')
     # show the data as a table
-    my_data = st.dataframe(df)
+    st.dataframe(df)
+    my_data = df[['experience', 'interview_score(out of 10)']]
+    st.line_chart(my_data)
+    st.write("""### Consider that experience is not always the most important fact!""")
     st.write("""### Don't worry! Text Reader is here to help you during the hiring process of your company!""")
     # ------------------------------------Statistics of how much time you can save----------------------------------------------
 
