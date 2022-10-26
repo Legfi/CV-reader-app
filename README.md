@@ -1,4 +1,4 @@
-#  A Very Simple Machine Learning Application: A Group Project.
+#  A Machine Learning Application:
 ## Brief Summary: 
 
 We use a Machine Learning module that we access via an API (Application Programming Interface) request. We also make use of the Streamlit library. The idea at large was that the user uploads data into a database and the user can then reach the saved information that is sorted under the name of the applicant. The simple database used is SQLite. The applicants data can then be used in order to answer very simple questions that are connected to the text copied into the Streamlit. For example, what if HR (Human Resources) wanted to easily access different data and not have to read through all of the text that the candidate provided within a textfile. HR is then able to ask questions and the Machine Learning API provides an answer and a probability. 
