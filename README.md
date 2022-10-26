@@ -84,12 +84,4 @@ This is the section where you mention all the different tests that can be perfor
 
 If you want to contribute to the code and this project it is made possible by commiting new code to github.
 
-For access to our private project reach out to:
-simpleapp@email.com. 
-
-
-## Credits:
-
-Special thanks to the creator of the API Isabella Gagner. 
-
 
